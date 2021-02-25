@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "conta_id": {
+          "type": "integer"
+        },
+        "conta": {
+          "type": "string"
+        },
+        "saldo": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "conta_id",
+        "conta",
+        "saldo"
+      ]
+    }
+  ]
+}
