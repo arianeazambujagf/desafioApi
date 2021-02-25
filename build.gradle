@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'barrigareact.api'
+group 'barrigarest.api'
 version '0.0.1-SNAPSHOT'
 
 repositories {
@@ -26,14 +26,6 @@ dependencies {
 test {
     systemProperty "testCycle", findProperty("testCycle")
     useTestNG()
-
-    def env = findProperty("env") //-Penv
-    def envRun = System.getProperty("env") //-Denv
-    if(env != null)
-        systemProperty "env",env
-    if(envRun != null)
-        systemProperty "env",envRun
-    //Default: dev
 }
 
 
