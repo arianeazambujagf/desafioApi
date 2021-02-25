@@ -1,102 +1,36 @@
 plugins {
     id 'java'
-    id 'maven-publish'
-    id "com.palantir.git-version" version "0.12.3"
 }
 
-group 'io.sicredi.customer-data.clients'
-version gitVersion()
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier.set('sources')
-}
-
-task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier.set('javadoc')
-}
-
-publishing {
-    repositories {
-        maven{
-            name = 'CAS'
-            def releasesRepoUrl = "https://artifactory.sicredi.net/artifactory/libs-release-local"
-            def snapshotsRepoUrl = "https://artifactory.sicredi.net/artifactory/libs-snapshot-local"
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-        }
-        maven {
-            name = 'Digital'
-            def releasesRepoUrl = "https://nexus.sicredi.in/repository/releases/"
-            def snapshotsRepoUrl = "https://nexus.sicredi.in/repository/snapshots/"
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-            credentials {
-                username 'app_dig_automation'
-                password 'Sicredi123'
-            }
-        }
-    }
-    publications {
-        sicredi(MavenPublication) {
-            groupId = group
-            artifactId = rootProject.name
-            version = version
-            artifact sourcesJar
-            artifact javadocJar
-            from components.java
-            pom {
-                name = 'customer-data-client-test'
-                description = 'Client Project Customer-Data API'
-                developers {
-                    developer {
-                        id = 'miqueias_machado'
-                        name = 'Miqueias Machado'
-                        email = 'miqueias_machado@sicredi.com.br'
-                    }
-                    developer {
-                        id = 'ariane_franca'
-                        name = 'Ariane Franca'
-                        email = 'ariane_franca@sicredi.com.br'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:ssh://git@gitlab.sicredi.net:CADENC/qa/customer-data-client-test.git'
-                    developerConnection = 'scm:git:ssh://git@gitlab.sicredi.net:CADENC/qa/customer-data-client-test.git'
-                    url = 'https://gitlab.sicredi.net/CADENC/qa/customer-data-client-test'
-                }
-            }
-        }
-    }
-}
+group 'barrigareact.api'
+version '0.0.1-SNAPSHOT'
 
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
-configurations {
-    // configuration that holds jars to include in the jar
-    extraLibs
-}
-
 dependencies {
-    compile 'org.eclipse.jgit:org.eclipse.jgit:5.0.2.201807311906-r'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
-    compileOnly 'org.projectlombok:lombok:1.18.16'
-    annotationProcessor 'org.projectlombok:lombok:1.18.16'
-    implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'
-    implementation group: 'org.testng', name: 'testng', version: '7.1.0'
-    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.1'
-    extraLibs group: 'io.rest-assured', name: 'rest-assured', version: '4.3.1'
-    configurations.compile.extendsFrom(configurations.extraLibs)
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.0'
+    implementation 'org.testng:testng:7.1.0'
+    implementation 'io.rest-assured:json-schema-validator:4.3.1'
 }
 
-jar {
-    from {
-        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+
+
+test {
+    systemProperty "testCycle", findProperty("testCycle")
+    useTestNG()
+
+    def env = findProperty("env") //-Penv
+    def envRun = System.getProperty("env") //-Denv
+    if(env != null)
+        systemProperty "env",env
+    if(envRun != null)
+        systemProperty "env",envRun
+    //Default: dev
 }
+
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
