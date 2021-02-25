@@ -26,14 +26,6 @@ dependencies {
 test {
     systemProperty "testCycle", findProperty("testCycle")
     useTestNG()
-
-    def env = findProperty("env") //-Penv
-    def envRun = System.getProperty("env") //-Denv
-    if(env != null)
-        systemProperty "env",env
-    if(envRun != null)
-        systemProperty "env",envRun
-    //Default: dev
 }
 
 
