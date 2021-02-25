@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        maven {
+            url "http://artifactory.sicredi.net/artifactory/repo"
+        }
+        maven {
+            url 'https://nexus.sicredi.in/repository/mirror/'
+            credentials {
+                username System.getenv('NEXUS_USERNAME')
+                password System.getenv('NEXUS_PASSWORD')
+            }
+        }
+    }
+}
+rootProject.name = 'customer-data-client-test'
+
