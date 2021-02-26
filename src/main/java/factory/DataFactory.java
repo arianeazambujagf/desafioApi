@@ -1,6 +1,7 @@
 package factory;
 
 import com.github.javafaker.Faker;
+import model.AccountModel;
 import model.BalanceModel;
 
 import java.util.Locale;
@@ -16,7 +17,7 @@ public class DataFactory {
        return headerToken;
     }
 
-    public static BalanceModel withDefaultValues() {
+    public static BalanceModel withDefaultBalanceValues() {
         return getBalance();
     }
 
@@ -27,4 +28,20 @@ public class DataFactory {
                 .conta(faker.number().digits(7))
                 .build();
     }
+
+    public static AccountModel withDefaultAccountValues() {
+        return postAccount();
+    }
+
+    private static AccountModel postAccount() {
+        return AccountModel.builder()
+                .id(90877)
+                .nome("Nome da Pessoa")
+                .visivel(true)
+                .usuario_id(12323)
+                .build();
+    }
+
+
+
 }
