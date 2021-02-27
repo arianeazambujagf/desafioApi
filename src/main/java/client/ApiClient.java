@@ -15,9 +15,9 @@ public class ApiClient {
 
     DataFactory dataFactory;
     /*************************************************************
-     * get: Busca as contas do Cliente
+     * get: Busca a conta passada por parametro
      *************************************************************/
-    public ValidatableResponse getAccounts(int id){
+    public ValidatableResponse getAccount(int id){
         return
                 given().
                         spec(getRequestSpecification()).
@@ -25,6 +25,23 @@ public class ApiClient {
                         contentType("application/x-www-form-urlencoded;charset=UTF-8").
                         accept("application/json, text/plain, */*").
                         pathParam("id", id).
+                when().
+                        get("contas/{id}").
+                then().
+                        statusCode(HttpStatus.SC_OK).
+                        contentType(ContentType.JSON);
+    }
+
+    /*************************************************************
+     * get: Busca todas as contas
+     *************************************************************/
+    public ValidatableResponse getAccounts(){
+        return
+                given().
+                        spec(getRequestSpecification()).
+                        header(dataFactory.headerName, dataFactory.headerToken).
+                        contentType("application/x-www-form-urlencoded;charset=UTF-8").
+                        accept("application/json, text/plain, */*").
                 when().
                         get("contas").
                 then().
@@ -98,6 +115,20 @@ public class ApiClient {
                 then().
                         statusCode(HttpStatus.SC_OK).
                         contentType(ContentType.JSON);
+    }
+
+    /*************************************************************
+     * get: Reseta as informações
+     *************************************************************/
+    public ValidatableResponse getReset(){
+        return
+                given().
+                        spec(getRequestSpecification()).
+                        header(dataFactory.headerName, dataFactory.headerToken).
+                when().
+                        get("reset").
+                then().
+                        statusCode(HttpStatus.SC_OK);
     }
 
     /*************************************************************
