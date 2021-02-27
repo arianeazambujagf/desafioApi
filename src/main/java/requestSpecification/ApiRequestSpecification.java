@@ -23,7 +23,7 @@ public class ApiRequestSpecification {
                                 new SSLConfig().relaxedHTTPSValidation()
                         )
                 )
-                .setContentType(ContentType.HTML)
+                .setContentType(ContentType.TEXT)
                 .setBaseUri(BASEURI)
                 .addFilter(new RequestLoggingFilter())
                 .build();
