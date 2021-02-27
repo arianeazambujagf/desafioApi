@@ -16,6 +16,7 @@ public class AccountTest {
 
     protected ApiClient client;
     private static AccountModel response;
+    private static AccountModel accounts;
 
     @Test
     public void getAccounts(){
@@ -52,7 +53,7 @@ public class AccountTest {
 
     @Test(dependsOnMethods = {"postAccounts"})
     public void deleteAccount(){
-        int id = response.getId();
+        int id = accounts.getId();
         given().
                 spec(getRequestSpecification()).
                 header(DataFactory.headerName, DataFactory.headerToken).

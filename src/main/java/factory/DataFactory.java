@@ -34,10 +34,10 @@ public class DataFactory {
 
     private static AccountModel postAccount() {
         return AccountModel.builder()
-                .id(faker.hashCode())
+                //id() gerados automaticamente
                 .nome(faker.name().lastName().toUpperCase())
                 .visivel(true)
-                .usuario_id(faker.hashCode())
+                //usuario_id()
                 .build();
     }
 
