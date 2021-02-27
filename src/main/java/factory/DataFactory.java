@@ -12,33 +12,32 @@ public class DataFactory {
 
     private DataFactory() {}
 
-    public static Object HeaderToken(){
-        Object headerToken = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM0ODJ9.gx7pnWtTgsOVPl8LRE9kYu5L158QnvRmXYs25eFZZMo";
-       return headerToken;
-    }
+    public static Object headerToken = "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM1MjJ9.BlYIFdq3QYduuRP99iWNVlURXozTSADmD-pfU6aYzHQ";
 
-    public static BalanceModel withDefaultBalanceValues() {
+    public static String headerName = "Authorization";
+
+    public static BalanceModel withRandomBalanceValues() {
         return getBalance();
     }
 
     private static BalanceModel getBalance() {
         return BalanceModel.builder()
                 .saldo(faker.number().digits(3))
-                .conta_id((faker.hashCode()))
+                .conta_id(123231)
                 .conta(faker.number().digits(7))
                 .build();
     }
 
-    public static AccountModel withDefaultAccountValues() {
+    public static AccountModel withRandomAccountValues() {
         return postAccount();
     }
 
     private static AccountModel postAccount() {
         return AccountModel.builder()
-                .id(90877)
-                .nome("Nome da Pessoa")
+                .id(faker.hashCode())
+                .nome(faker.name().lastName().toUpperCase())
                 .visivel(true)
-                .usuario_id(12323)
+                .usuario_id(faker.hashCode())
                 .build();
     }
 
