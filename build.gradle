@@ -28,6 +28,12 @@ dependencies {
 test {
     systemProperty "testCycle", findProperty("testCycle")
     useTestNG()
+
+}
+
+tasks.withType(Test){
+    scanForTestClasses = false
+    include "**/*Test.class"
 }
 
 
