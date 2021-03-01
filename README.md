@@ -9,7 +9,6 @@ Projeto de testes da api (https://barrigarest.wcaquino.me).
 Os testes estão dividos nos seguintes objetivos:
 * HealthCheck: valida se a api está UP;
 * Contract: valida o contrato de response, visando identificar possíveis alterações em atributos, tanto inclusões/exclusões quanto regras de obrigatoriedade;
-* Acceptance: valida o fluxo principal de funcionamento da api;
 * Functional: valida os fluxos específicos e alternativos da api.
 
 # Pré-requisitos:

@@ -7,6 +7,7 @@ import org.apache.http.HttpStatus;
 
 import java.io.File;
 
+import static factory.DataFactory.statementParam;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static requestSpecification.ApiRequestSpecification.getRequestSpecification;
@@ -47,6 +48,22 @@ public class ApiClient {
                 then().
                         statusCode(HttpStatus.SC_OK).
                         contentType(ContentType.JSON);
+    }
+
+    /*************************************************************
+     * get: Busca todas as contas
+     *************************************************************/
+    public ValidatableResponse getStatement(){
+        return
+                given().
+                        spec(getRequestSpecification()).
+                        header(dataFactory.headerName, dataFactory.headerToken).
+
+                when().
+                        get("extrato/"+statementParam).
+                then().
+                        statusCode(HttpStatus.SC_OK);
+                        //contentType(ContentType.JSON);
     }
 
     /*************************************************************

@@ -16,6 +16,10 @@ public class DataFactory {
 
     public static String headerName = "Authorization";
 
+    public static Object statementParam = "202102";
+
+    public static String statementName = "statementParam";
+
     public static BalanceModel withRandomBalanceValues() {
         return getBalance();
     }
